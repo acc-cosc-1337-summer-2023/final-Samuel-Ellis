@@ -3,7 +3,7 @@
 #ifndef DIE_H
 #define DIE_H
 
-class die{
+class Die{
 public:
 void roll();
 int const rolled_value();
