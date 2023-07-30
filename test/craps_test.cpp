@@ -3,6 +3,8 @@
 #include "die.h"
 #include"roll.h"
 #include"shooter.h"
+#include"come_out_phase.h"
+#include"point_phase.h"
 #include <iostream>
 using std::cout;
 
@@ -80,7 +82,7 @@ TEST_CASE("Testing Shooter class"){
 	for (int i = 0; i < 10; i++)
 	{
 		Roll dice = *shoot.throw_die(dice1, dice2);
-		cout<<dice.roll_value()<<"\n";
+		//cout<<dice.roll_value()<<"\n";
 		if(dice.roll_value() == 2){
 			REQUIRE(dice.roll_value() == 2);
 		} else if(dice.roll_value() == 3){
@@ -109,4 +111,34 @@ TEST_CASE("Testing Shooter class"){
 	}
 	
 
+}
+
+TEST_CASE("Testing ComeOutPhase class"){
+	ComeOutPhase something;
+	Die dice1;
+	Die dice2;
+	Roll roll1(dice1, dice2);
+	Roll roll2(dice1, dice2);
+	Roll roll3(dice1, dice2);
+	roll1.set_value(7);
+	roll2.set_value(2);
+	roll3.set_value(5);
+	REQUIRE(something.get_outcome(&roll1) == RollOutcome::natural);
+	REQUIRE(something.get_outcome(&roll2) == RollOutcome::craps);
+	REQUIRE(something.get_outcome(&roll3) == RollOutcome::point);
+}
+
+TEST_CASE("Testing PointPhase class"){
+	PointPhase something(3);
+	Die dice1;
+	Die dice2;
+	Roll roll1(dice1, dice2);
+	Roll roll2(dice1, dice2);
+	Roll roll3(dice1, dice2);
+	roll1.set_value(3);
+	roll2.set_value(7);
+	roll3.set_value(5);
+	REQUIRE(something.get_outcome(&roll1) == RollOutcome::point);
+	REQUIRE(something.get_outcome(&roll2) == RollOutcome::seven_out);
+	REQUIRE(something.get_outcome(&roll3) == RollOutcome::nopoint);
 }

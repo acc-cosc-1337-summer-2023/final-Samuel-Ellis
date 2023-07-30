@@ -10,3 +10,7 @@ void Roll::roll_die(){
 int const Roll::roll_value(){
     return value;
 }
+
+void Roll::set_value(int val){
+    value = val;
+}
