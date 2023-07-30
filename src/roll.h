@@ -3,7 +3,7 @@
 #ifndef ROLL_H
 #define ROLL_H
 
-class Roll : Die{
+class Roll : public Die{
 public:
     Roll(Die& dice1, Die& dice2) : die1(dice1), die2(dice2){}
     void roll_die();
